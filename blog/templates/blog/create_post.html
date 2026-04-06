@@ -1,0 +1,62 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Create New Post{% endblock %}
+
+{% block content %}
+<div class="blog-post">
+    <h2>Create New Blog Post</h2>
+    <hr>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Manual form rendering with categories -->
+        <div class="mb-3">
+            <label for="id_title" class="form-label">Title</label>
+            <input type="text" name="title" class="form-control" id="id_title" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_slug" class="form-label">Slug (URL)</label>
+            <input type="text" name="slug" class="form-control" id="id_slug">
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_content" class="form-label">Content</label>
+            <textarea name="content" class="form-control" id="id_content" rows="10" required></textarea>
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_featured_image" class="form-label">Featured Image</label>
+            <input type="file" name="featured_image" class="form-control" id="id_featured_image" accept="image/*">
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_category" class="form-label">Category</label>
+            <select name="category" class="form-control" id="id_category">
+                <option value="">Select a category</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_tags" class="form-label">Tags</label>
+            <input type="text" name="tags" class="form-control" id="id_tags" placeholder="python, django, web">
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_status" class="form-label">Status</label>
+            <select name="status" class="form-control" id="id_status">
+                <option value="published" selected>Published</option>
+                <option value="draft">Draft</option>
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Publish Post</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

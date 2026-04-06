@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #4CAF50; color: white; padding: 10px; text-align: center; }
+        .content { padding: 20px; background: #f9f9f9; }
+        .comment { background: white; padding: 15px; margin: 10px 0; border-left: 3px solid #4CAF50; }
+        .footer { text-align: center; padding: 10px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>New Comment on Your Post!</h2>
+        </div>
+        <div class="content">
+            <p><strong>Post:</strong> {{ post.title }}</p>
+            <p><strong>Comment by:</strong> {{ comment.name }} ({{ comment.email }})</p>
+            <div class="comment">
+                <p>{{ comment.body }}</p>
+            </div>
+            <p>View and respond to this comment:</p>
+            <a href="{{ protocol }}://{{ domain }}{{ post.get_absolute_url }}" style="background: #4CAF50; color: white; padding: 10px 20px; text-decoration: none;">View Comment</a>
+        </div>
+        <div class="footer">
+            <p>Sent from My Blog</p>
+        </div>
+    </div>
+</body>
+</html>

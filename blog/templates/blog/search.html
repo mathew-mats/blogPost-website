@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<div class="blog-post">
+    <h2>Search Results for "{{ query }}"</h2>
+    <p>Found {{ posts.count }} post(s)</p>
+    <hr>
+</div>
+
+{% if posts %}
+    {% for post in posts %}
+        <article class="blog-post">
+            <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+            <div class="text-muted">
+                {{ post.published_at|date:"F d, Y" }} by {{ post.author.username }}
+            </div>
+            <p class="mt-2">{{ post.content|truncatewords:50|safe }}</p>
+            <a href="{{ post.get_absolute_url }}" class="btn btn-sm btn-primary">Read More</a>
+        </article>
+    {% endfor %}
+{% else %}
+    <div class="blog-post text-center">
+        <p>No posts found matching "{{ query }}"</p>
+        <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+    </div>
+{% endif %}
+{% endblock %}
